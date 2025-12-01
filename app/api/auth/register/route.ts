@@ -4,6 +4,7 @@ import { getDb } from '@/server/db'
 import { hashPassword } from '@/server/auth/password'
 import { signToken } from '@/server/auth/jwt'
 import type { User } from '@/types/db'
+import type { Db } from 'mongodb'
 
 const registerSchema = z.object({
   email: z.string().email(),
@@ -15,7 +16,17 @@ export async function POST(request: NextRequest) {
     const body = await request.json()
     const { email, password } = registerSchema.parse(body)
 
-    const db = await getDb()
+    let db: Db
+    try {
+      db = await getDb()
+    } catch (dbError) {
+      console.error('Database connection error:', dbError)
+      return NextResponse.json(
+        { error: 'Database connection failed. Please check your MongoDB configuration.' },
+        { status: 500 }
+      )
+    }
+
     const users = db.collection<User>('users')
 
     // Check if user exists
