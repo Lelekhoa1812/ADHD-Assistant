@@ -137,6 +137,5 @@ npm run lint
 - Test crisis detection flow
 
 ## License
-
 MIT
 

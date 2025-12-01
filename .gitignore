@@ -30,3 +30,5 @@ yarn-error.log*
 # Project docs (optional - remove if you want to track these)
 .project.md
 PLANNING.md
+DEPLOYMENT_GUIDE.md
+.vercel
