@@ -2,6 +2,8 @@
 
 A serverless Next.js application for ADHD screening and personalized coaching, built with Gemini 2.5 and NVIDIA NIM.
 
+[Demo App](https://adhd-assistant-five.vercel.app)
+
 ## Features
 
 - **ADHD Screening**: ASRS v1.1 (6Q) screening tool for self-understanding
@@ -44,13 +46,6 @@ A serverless Next.js application for ADHD screening and personalized coaching, b
      - `GEMINI_API_1` through `GEMINI_API_5`: Your Gemini API keys
      - `NVIDIA_API_1` through `NVIDIA_API_5`: Your NVIDIA API keys
      - `NEXT_PUBLIC_APP_URL`: Your app URL (http://localhost:3000 for dev)
-
-4. Run the development server:
-   ```bash
-   npm run dev
-   ```
-
-5. Open [http://localhost:3000](http://localhost:3000)
 
 ## Project Structure
 

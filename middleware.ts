@@ -5,7 +5,7 @@ import { verifyToken } from '@/server/auth/jwt'
 export async function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl
 
-  // Public routes
+  // Public routes - allow access without authentication
   if (
     pathname === '/' ||
     pathname.startsWith('/auth') ||
@@ -24,16 +24,25 @@ export async function middleware(request: NextRequest) {
       return NextResponse.redirect(url)
     }
 
-    const payload = await verifyToken(token)
-    if (!payload) {
+    try {
+      const payload = await verifyToken(token)
+      if (!payload) {
+        const url = request.nextUrl.clone()
+        url.pathname = '/auth/login'
+        return NextResponse.redirect(url)
+      }
+
+      // Token is valid, allow access to the route
+      return NextResponse.next()
+    } catch (error) {
+      // If token verification fails, redirect to login
       const url = request.nextUrl.clone()
       url.pathname = '/auth/login'
       return NextResponse.redirect(url)
     }
-
-    return NextResponse.next()
   }
 
+  // Allow all other routes to pass through
   return NextResponse.next()
 }
 

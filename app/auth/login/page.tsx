@@ -31,11 +31,12 @@ export default function LoginPage() {
 
       if (!response.ok) {
         setError(data.error || 'Login failed')
+        setLoading(false)
         return
       }
 
-      router.push('/app/dashboard')
-      router.refresh()
+      // Use window.location for a full page reload to ensure cookie is available
+      window.location.href = '/app/dashboard'
     } catch (err) {
       setError('An error occurred. Please try again.')
     } finally {
